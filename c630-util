@@ -1,0 +1,206 @@
+#!/bin/bash
+VEN=/usr/lib/c630-util/v4l2-dec.sh
+VENUSF=/usr/lib/c630-util/venus-firm
+RPROCSH=/usr/lib/c630-util/rproc.sh
+RPROC=/usr/lib/c630-util/rproc
+PLIST=/usr/lib/c630-util/plist
+GETINFO=/usr/lib/c630-util/getinfo
+GTKDIALOG=gtkdialog
+INFO=/usr/lib/c630-util/info
+UPDATEBOOST=/usr/lib/c630-util/update-boost
+LISTTEMPS="/usr/local/bin/list-temps.sh"
+rm /tmp/boost-status 2> /dev/null
+echo "" > $INFO
+bash -c $GETINFO
+bash -c $(echo $UPDATEBOOST)
+bash -c $VEN
+echo "" > $PLIST
+bash -c $RPROCSH
+
+rm /tmp/interconnect_graph.svg 2> /dev/null
+
+
+
+MAIN_DIALOG='
+<window title="Lenovo Yoga C630 Utility" resizable="false" width="500">
+	<vbox>
+		<vbox width-request="500" width="500" border-width="10" spacing="10">
+			<text use-markup="true">
+				<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'> Yoga C630 info </span>"</label>
+			</text>
+            <expander use-markup="true">
+			<vbox scrollable="true" height="455">
+				<text wrap="false" use-markup="true" selectable="true">
+					<variable export="false">txt0</variable>
+					<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'> Yoga C630 info </span>"</label>
+					<input file>"'"$INFO"'"</input>
+				</text>
+			</vbox>
+			<label>Yoga C630 hardware info list</label>
+			<variable>exp1</variable>
+			</expander>
+            <expander>
+            <vbox scrollable="true" height="430">
+            <text resizable="false" wrap="false" use-markup="true" selectable="true">
+            <variable>poo</variable>
+            <input>list-temps.sh</input>
+            </text>
+            </vbox>
+            <label>Temps and Alerts</label>
+            </expander>
+	<vbox xalign="0" text-xalign="0" width-request="50" width="50" homogeneous="true" space-expand="false" space-fill="false">
+	        <hbox xalign="0" text-xalign="0" homogeneous="true" space-expand="true" space-fill="true">
+				<button xalign="0" text-xalign="0">
+				<label>interconnect graph</label>
+				<action>cat /sys/kernel/debug/interconnect/interconnect_graph | dot -Tsvg > /tmp/interconnect_graph.svg</action>
+				<action>xdg-open /tmp/interconnect_graph.svg</action>
+			</button>
+
+				<button xalign="0" text-xalign="0">
+				<label>refresh temps and alerts</label>
+				<action>refresh:poo</action>
+				</button>
+			</hbox>
+			</vbox>
+				</vbox>
+			<hseparator></hseparator>
+			<hbox>
+			<text use-markup="true">
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>CPU TURBO BOOST SUPPORT</span>"</label>
+			</text>
+			</hbox>
+			<hbox>
+			<text use-markup="true">
+			<label>"<b>current cpu turbo boost setting is </b>"</label>
+			</text>
+<text use-markup="true" wrap="false" xalign="0" file-monitor="true" auto-refresh="true" selectable="true"><label>"<i></i>     <b></b>     <u></u>     <s></s>     <small></small>     <big></big>     <tt></tt>     <sup></sup>     <sub></sub>     <span></span>"</label>
+            <variable>boost</variable>
+            <input file>/tmp/boost-status</input>
+            </text>
+			<text use-markup="true"><label>"<b>set to </b>"</label></text>
+							<button>
+				<label>0</label>
+				<action>echo 0 > /sys/devices/system/cpu/cpufreq/boost </action>
+				<action>bash -c '"'$(echo $UPDATEBOOST)'"'</action>
+				<action>refresh:boost</action>
+			</button>
+							<button>
+				<label>1</label>
+				<action>echo 1 > /sys/devices/system/cpu/cpufreq/boost </action>
+				<action>bash -c '"'$(echo $UPDATEBOOST)'"'</action>
+				<action>refresh:boost</action>
+			</button>
+			</hbox>
+			<hseparator></hseparator>
+						<hbox>
+			<text use-markup="true">
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>VENUS</span>"</label>
+			</text>
+			</hbox>
+
+			<hbox homogeneous="false" space-expand="false" space-fill="false">
+			<hbox>
+						<button><label>enable debug on</label>
+						<action>echo $venustree </action>
+						<action>echo 1 > /sys/class/video4linux/$venustree/dev_debug</action>
+						<action>bash -c '$VEN'</action>
+                        <action>refresh:veninfo</action>
+
+						</button>
+						<button><label>disable debug on</label>
+						<action>echo $venustree </action>
+						<action>echo 0 > /sys/class/video4linux/$venustree/dev_debug</action>
+						<action>bash -c '$VEN'</action>
+						<action>refresh:veninfo</action>
+
+						</button>
+            </hbox>
+            <hbox>
+			<comboboxtext use-markup="true" xalign="0">
+			<variable>venustree</variable>
+			<input file>/usr/lib/c630-util/venus-vid</input>
+			</comboboxtext>
+            </hbox>
+			</hbox>
+			<vbox>
+			<hbox homogeneous="false" space-expand="false" space-fill="false">
+			<button>
+			<label>Reinstall venus firmware</label>
+			<action>bash -c '$VENUSF'</action>
+			</button>
+			</hbox>
+			</vbox>
+			<expander>
+            <vbox>
+            <text>
+            <input file>/usr/lib/c630-util/venus</input>
+            <variable>veninfo</variable>
+            </text>
+            </vbox>
+            <label>Venus info</label>
+            <variable>venexp</variable>
+            </expander>
+<hseparator></hseparator>
+						<hbox>
+			<text use-markup="true" selectable="true">
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>SOUND</span>"</label>
+			</text>
+			</hbox>
+			<expander>
+			<text wrap="false" xalign="0" text-xalign="0">
+			<input>cat /proc/asound/cards</input>
+			</text>
+			<label>sound cards</label>
+			</expander>
+			<hseparator></hseparator>
+						<hbox>
+			<text use-markup="true">
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>REMOTEPROC</span>"</label>
+			</text>
+			</hbox>
+
+		    <hbox homogeneous="false" space-expand="false" space-fill="false">
+            <hbox>
+		    <button>
+		    <label>stop</label>
+		    <action>echo stop > /sys/class/remoteproc/$PLIST1/state</action>
+		    <action>bash -c 'RPROCSH'</action>
+		    <action>refresh:RPFRESH</action>
+		    </button>
+		    <button>
+		    <label>start</label>
+		    <action>echo start > /sys/class/remoteproc/$PLIST1/state</action>
+		    <action>bash -c 'RPROCSH'</action>
+		    <action>refresh:RPFRESH</action>
+		    </button>
+
+
+		    <comboboxtext use-markup="true">
+		    <variable>PLIST1</variable>
+		    <input file>"'"$PLIST"'"</input>
+		    </comboboxtext>
+            </hbox>
+            </hbox>
+            <expander>
+            <vbox>
+		    <text file-monitor="true" auto-refresh="true">
+		    <input file>"'"$RPROC"'"</input>
+		    <variable>RPFRESH</variable>
+		    </text>
+            </vbox>
+            <label>Remoteroc info</label>
+            </expander>
+
+				<hbox>
+			<button cancel></button>
+			<button ok></button>
+		</hbox>
+	</vbox>
+</window>
+'
+export MAIN_DIALOG
+
+case $1 in
+	-d | --dump) echo "$MAIN_DIALOG" ;;
+	*) $GTKDIALOG --program=MAIN_DIALOG ; rm /tmp/interconnect_graph.svg 2> /dev/null ; rm /tmp/boost-status 2> /dev/null ;;
+esac

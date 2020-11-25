@@ -1,0 +1,84 @@
+#!/bin/bash
+echo "" > /usr/lib/c630-util/info
+echo -n "compatible " > /usr/lib/c630-util/info
+cat /proc/device-tree/compatible >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo -n "bootargs = " >> /usr/lib/c630-util/info
+cat /proc/device-tree/chosen/bootargs >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo -n "cpu compatability = " >> /usr/lib/c630-util/info
+cat /proc/device-tree/cpus/cpu@0/compatible >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo -n "panel compatability = " >> /usr/lib/c630-util/info
+cat /proc/device-tree/panel/compatible >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo "" >> /usr/lib/c630-util/info
+echo -n "bios date = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/bios_date >> /usr/lib/c630-util/info
+
+echo -n "bios release = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/bios_release >> /usr/lib/c630-util/info
+
+echo -n "board_name = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/board_name >> /usr/lib/c630-util/info
+
+echo -n "board_serial = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/board_serial >> /usr/lib/c630-util/info
+
+echo -n "board_version = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/board_version >> /usr/lib/c630-util/info
+
+echo -n "ec_firmware_release = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/ec_firmware_release >> /usr/lib/c630-util/info
+
+echo -n "product_family = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/product_family >> /usr/lib/c630-util/info
+
+echo -n "product_name = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/product_name >> /usr/lib/c630-util/info
+
+echo -n "product_sku = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/product_sku >> /usr/lib/c630-util/info
+
+echo -n "product_uuid = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/product_uuid >> /usr/lib/c630-util/info
+
+echo -n "product_version = " >> /usr/lib/c630-util/info
+cat /sys/class/dmi/id/product_version >> /usr/lib/c630-util/info
+
+echo -n "panel modalias = " >> /usr/lib/c630-util/info
+cat /sys/devices/platform/panel/modalias >> /usr/lib/c630-util/info
+
+echo -n "pmic model = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/pmic_model >> /usr/lib/c630-util/info
+
+echo -n "pmic die_rev = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/pmic_die_rev >> /usr/lib/c630-util/info
+
+echo -n "num_defective_parts = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/num_defective_parts >> /usr/lib/c630-util/info
+
+echo -n "chip_id = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/chip_id >> /usr/lib/c630-util/info
+
+echo -n "adsp name = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/adsp/name >> /usr/lib/c630-util/info
+
+echo -n "adsp variant = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/adsp/variant >> /usr/lib/c630-util/info
+
+echo -n "boot name = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/adsp/name >> /usr/lib/c630-util/info
+
+echo -n "boot variant = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/boot/variant >> /usr/lib/c630-util/info
+
+echo -n "mpss name = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/mpss/name >> /usr/lib/c630-util/info
+
+echo -n "mpss variant = " >> /usr/lib/c630-util/info
+cat /sys/kernel/debug/qcom_socinfo/mpss/variant >> /usr/lib/c630-util/info
+

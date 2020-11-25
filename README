@@ -1,0 +1,37 @@
+Simple GUI for showing hardware information and configuring the Lenovo Yoga C630
+arm64 Qualcomm laptop. This First commit is an early draft but still usefull.
+More to come. This assumes you have a newer patched c630 kernel with cpu turbo
+boost support, soon ath10k debug will be required plus others. I suggest using
+mine;
+https://github.com/bm16ton/yoga-c630-linux-kernel
+   or steevs
+https://github.com/steev/linux-1/tree/c630-5.9
+   kernels. I have a 16ton_defconfig that should work nicely
+
+Install;
+First make sure you have gtkdialog installed from;
+https://github.com/bm16ton/gtkdialog.git
+
+or from within this repo you can simply run;
+
+sudo ./install-gtkdialog.sh
+
+then install the scripts;
+
+sudo ./install.sh
+
+
+to remove
+
+sudo ./uninstall.sh
+
+
+
+So far this Shows a ton of info about hardware from /sys
+allows checking status, starting, stoping remoteprocs
+brings up the interconnect graph
+enable/disable debug on venus enocders/decoders
+One click reinstall of venus firmware after linux-firmware update replaces them
+Enable disable cpu turbo/boost freqs
+
+Hopefully lots more to come with prepackged fixes etc.

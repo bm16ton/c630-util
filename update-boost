@@ -1,0 +1,7 @@
+#!/bin/bash
+if [ "$(cat /sys/devices/system/cpu/cpufreq/boost)" = "0" ]; then
+    echo "<span color='"'red'"'><big>$(cat /sys/devices/system/cpu/cpufreq/boost)</big></span>" > /tmp/boost-status
+else
+    echo "<span color='"'green'"'><big>$(cat /sys/devices/system/cpu/cpufreq/boost)</big></span>" > /tmp/boost-status
+fi
+
