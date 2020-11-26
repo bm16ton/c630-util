@@ -229,7 +229,31 @@ MAIN_DIALOG='
             </vbox>
             <label>Remoteroc info</label>
             </expander>
-
+            <hseparator></hseparator>
+			<hbox>
+			<text use-markup="true">
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>TOUCHPAD</span>"</label>
+			</text>
+			</hbox>
+		    <hbox>
+			<text>
+				<label>Synaptic Parameter:</label>
+			</text>
+			<comboboxentry>
+				<variable>COMBOBOX1</variable>
+                <input>/usr/lib/c630-util/synlist</input>
+                <action signal="changed">refresh:'COMBOBOX2'</action>
+			</comboboxentry>
+			<entry>
+				<variable>COMBOBOX2</variable>
+                <input>/usr/lib/c630-util/synvar</input>
+			</entry>
+			<button>
+			<label>Apply</label>
+			<action>synclient $COMBOBOX1=$COMBOBOX2</action>
+			<action>refresh:'COMBOBOX2'</action>
+			</button>
+		</hbox>
 				<hbox>
 			<button cancel></button>
 			<button ok></button>

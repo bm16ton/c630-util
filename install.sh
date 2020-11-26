@@ -17,4 +17,8 @@ cp print1 /usr/lib/c630-util
 chmod +x /usr/lib/c630-util/print1
 cp c630-util /usr/local/bin/
 chmod +x /usr/local/bin/c630-util
+cp synvar /usr/lib/c630-util/
+chmod +x /usr/lib/c630-util/synvar
+cp synlist /usr/lib/c630-util/
+chmod +x /usr/lib/c630-util/synlist
 
