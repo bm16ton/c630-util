@@ -38,11 +38,13 @@ MAIN_DIALOG='
 					<input file>"'"$INFO"'"</input>
 				</text>
 			</vbox>
-							<button xalign="2" text-xalign="2">
+			<hbox>
+			<button xalign="2" text-xalign="2">
 				<label>interconnect graph</label>
 				<action>cat /sys/kernel/debug/interconnect/interconnect_graph | dot -Tsvg > /tmp/interconnect_graph.svg</action>
 				<action>xdg-open /tmp/interconnect_graph.svg</action>
 			</button>
+			</hbox>
 			</vbox>
 			<label>Yoga C630 hardware info list</label>
 			<variable>exp1</variable>
@@ -58,9 +60,9 @@ MAIN_DIALOG='
             </text>
             </vbox>
 
-	<vbox xalign="0" text-xalign="0" width-request="50" width="50" homogeneous="true" space-expand="false" space-fill="false">
-	        <hbox xalign="0" text-xalign="0" homogeneous="true" space-expand="true" space-fill="true">
-				<button xalign="0" text-xalign="0">
+	        <vbox xalign="0" text-xalign="0" width-request="50" width="50" homogeneous="true" space-expand="false" space-fill="false">
+	        <hbox>
+				<button  xalign="2" text-xalign="2">
 				<label>refresh temps and alerts</label>
 				<action>refresh:poo</action>
 				</button>
