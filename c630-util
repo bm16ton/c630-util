@@ -28,7 +28,9 @@ MAIN_DIALOG='
 			<text use-markup="true">
 				<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'> Yoga C630 info </span>"</label>
 			</text>
+			<vbox>
             <expander use-markup="true">
+            <vbox>
 			<vbox scrollable="true" height="455">
 				<text wrap="false" use-markup="true" selectable="true">
 					<variable export="false">txt0</variable>
@@ -36,39 +38,44 @@ MAIN_DIALOG='
 					<input file>"'"$INFO"'"</input>
 				</text>
 			</vbox>
+							<button xalign="2" text-xalign="2">
+				<label>interconnect graph</label>
+				<action>cat /sys/kernel/debug/interconnect/interconnect_graph | dot -Tsvg > /tmp/interconnect_graph.svg</action>
+				<action>xdg-open /tmp/interconnect_graph.svg</action>
+			</button>
+			</vbox>
 			<label>Yoga C630 hardware info list</label>
 			<variable>exp1</variable>
 			</expander>
+			</vbox>
+			<vbox>
             <expander>
+            <vbox>
             <vbox scrollable="true" height="430">
             <text resizable="false" wrap="false" use-markup="true" selectable="true">
             <variable>poo</variable>
             <input>list-temps.sh</input>
             </text>
             </vbox>
-            <label>Temps and Alerts</label>
-            </expander>
+
 	<vbox xalign="0" text-xalign="0" width-request="50" width="50" homogeneous="true" space-expand="false" space-fill="false">
 	        <hbox xalign="0" text-xalign="0" homogeneous="true" space-expand="true" space-fill="true">
-				<button xalign="0" text-xalign="0">
-				<label>interconnect graph</label>
-				<action>cat /sys/kernel/debug/interconnect/interconnect_graph | dot -Tsvg > /tmp/interconnect_graph.svg</action>
-				<action>xdg-open /tmp/interconnect_graph.svg</action>
-			</button>
-
 				<button xalign="0" text-xalign="0">
 				<label>refresh temps and alerts</label>
 				<action>refresh:poo</action>
 				</button>
 			</hbox>
 			</vbox>
+			</vbox>
+
+			           <label>Temps and Alerts</label>
+            </expander>
+            			</vbox>
 				</vbox>
 			<hseparator></hseparator>
-			<hbox>
-			<text use-markup="true">
-			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>CPU TURBO BOOST SUPPORT</span>"</label>
-			</text>
-			</hbox>
+			<vbox>
+			<expander use-markup="true">
+			<vbox>
 			<hbox>
 			<text use-markup="true">
 			<label>"<b>current cpu turbo boost setting is </b>"</label>
@@ -91,13 +98,14 @@ MAIN_DIALOG='
 				<action>refresh:boost</action>
 			</button>
 			</hbox>
+			</vbox>
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>CPU TURBO BOOST SUPPORT</span>"</label>
+			</expander>
+			</vbox>
 			<hseparator></hseparator>
-						<hbox>
-			<text use-markup="true">
-			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>VENUS</span>"</label>
-			</text>
-			</hbox>
-
+			<vbox>
+			<expander use-markup="true">
+			<vbox>
 			<hbox homogeneous="false" space-expand="false" space-fill="false">
 			<hbox>
 						<button><label>enable debug on</label>
@@ -130,35 +138,29 @@ MAIN_DIALOG='
 			</button>
 			</hbox>
 			</vbox>
-			<expander>
+
             <vbox>
             <text>
             <input file>/usr/lib/c630-util/venus</input>
             <variable>veninfo</variable>
             </text>
             </vbox>
-            <label>Venus info</label>
+            </vbox>
+            <label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>VENUS</span>"</label>
             <variable>venexp</variable>
             </expander>
+            </vbox>
 <hseparator></hseparator>
-						<hbox>
-			<text use-markup="true" selectable="true">
-			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>SOUND</span>"</label>
-			</text>
-			</hbox>
-			<expander>
+			<expander use-markup="true">
 			<text wrap="false" xalign="0" text-xalign="0">
 			<input>cat /proc/asound/cards</input>
 			</text>
-			<label>sound cards</label>
+			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>SOUND</span>"</label>
 			</expander>
 			<hseparator></hseparator>
-						<hbox>
-			<text use-markup="true">
-			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>REMOTEPROC</span>"</label>
-			</text>
-			</hbox>
-
+			<vbox>
+            <expander use-markup="true">
+		    <vbox>
 		    <hbox homogeneous="false" space-expand="false" space-fill="false">
             <hbox>
 		    <button>
@@ -189,7 +191,7 @@ MAIN_DIALOG='
 		    </comboboxtext>
             </hbox>
             </hbox>
-            <expander>
+
             <vbox>
 		    <hbox>
 		    <vbox>
@@ -227,14 +229,14 @@ MAIN_DIALOG='
 		    </vbox>
 		    </hbox>
             </vbox>
-            <label>Remoteroc info</label>
+            </vbox>
+            <label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>REMOTEPROC</span>"</label>
             </expander>
+            </vbox>
             <hseparator></hseparator>
-			<hbox>
-			<text use-markup="true">
-			<label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>TOUCHPAD</span>"</label>
-			</text>
-			</hbox>
+			<vbox>
+			<expander use-markup="true">
+			<vbox>
 		    <hbox>
 			<text>
 				<label>Synaptic Parameter:</label>
@@ -253,7 +255,11 @@ MAIN_DIALOG='
 			<action>synclient $COMBOBOX1=$COMBOBOX2</action>
 			<action>refresh:'COMBOBOX2'</action>
 			</button>
-		</hbox>
+		    </hbox>
+		    </vbox>
+		    <label>"<span fgcolor='"'black'"' bgcolor='"'white'"'>TOUCHPAD</span>"</label>
+		    </expander>
+		    </vbox>
 				<hbox>
 			<button cancel></button>
 			<button ok></button>
